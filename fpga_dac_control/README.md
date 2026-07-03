@@ -7,6 +7,8 @@ A Python package for controlling FPGA waveform generation and DAC (Digital-to-An
 - **UART Communication**: Robust serial communication with packet framing and checksum validation
 - **FPGA Control**: Configure waveform parameters (frequency, amplitude, phase, type)
 - **DAC Control**: Set gain, offset, and output values for multiple channels
+- **Graphical Interface**: Full-featured GUI for visual signal control and monitoring
+- **Period Modulation**: Visualize and control frequency/period modulation effects
 - **Interactive Console**: Command-line interface for manual control
 - **Demo Mode**: Built-in demonstration sequence
 
@@ -53,6 +55,9 @@ python main.py -p /dev/ttyUSB0 -b 115200
 # Run demo sequence
 python main.py --demo
 
+# Launch Graphical User Interface
+python gui_controller.py
+
 # Enable verbose logging
 python main.py -v
 ```
@@ -76,10 +81,46 @@ Once in interactive mode, use these commands:
 fpga_dac_control/
 ├── __init__.py          # Package initialization
 ├── main.py              # Main entry point and CLI
+├── gui_controller.py    # Graphical user interface
 ├── uart_comm.py         # UART communication layer
 ├── fpga_controller.py   # FPGA waveform control
 ├── dac_controller.py    # DAC output control
 └── requirements.txt     # Python dependencies
+```
+
+## GUI Features
+
+The graphical interface (`gui_controller.py`) provides:
+
+- **COM Port Selection**: Dropdown to select and refresh available serial ports
+- **Baud Rate Configuration**: Select from standard baud rates (9600 - 921600)
+- **Waveform Type Selector**: Choose between Sine, Square, Triangle, and Sawtooth
+- **Parameter Sliders**: Real-time adjustment of:
+  - Frequency (0.1 - 1000 Hz)
+  - Amplitude (0 - 5 V)
+  - Phase (0 - 360 degrees)
+  - DC Offset (-5 to +5 V)
+- **Period Modulation Controls**:
+  - Modulation Depth (0 - 100%)
+  - Modulation Frequency (0 - 50 Hz)
+- **Real-time Visualization**: Matplotlib plot showing the generated waveform
+- **Status Log**: Timestamped log of connection status and sent commands
+- **One-click Send**: Transmit all parameters to FPGA with a single button
+
+### Running the GUI
+
+```bash
+# Launch the graphical interface
+python gui_controller.py
+```
+
+**Note**: The GUI requires `tkinter`, `numpy`, and `matplotlib`. On Linux, you may need to install tkinter separately:
+```bash
+# Ubuntu/Debian
+sudo apt-get install python3-tk
+
+# Fedora
+sudo dnf install python3-tkinter
 ```
 
 ## Protocol
